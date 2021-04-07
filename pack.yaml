@@ -1,6 +1,6 @@
 ---
-ref: service_remediations
-name : service_remediations
+ref: service_remediations_pack
+name : service_remediations_pack
 description : Service remediations in StackStorm with ssh
 keywords:
   - python3
