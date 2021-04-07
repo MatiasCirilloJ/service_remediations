@@ -1,0 +1,12 @@
+---
+ref: service_remediations
+name : service_remediations
+description : Service remediations in StackStorm with ssh
+keywords:
+  - python3
+  - ansible
+version: 0.1.0
+python_versions:
+  - "3"
+author : MCirillo
+email : matias.cirillo@la.logicalis.com
