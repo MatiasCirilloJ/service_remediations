@@ -1,0 +1,18 @@
+---
+pack: service_remediations_pack
+ref: service_remediations_pack.service_remediations_rule
+name: service_remediations_rule
+enabled: true
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "serv_remed"
+criteria:
+  trigger.body.service:
+    type: exists
+    pattern: {}
+action:
+  ref: service_remediations_pack.service_remediations_action
+  description: Service remediations in StackStorm with ssh
+  parameters:
+    queue: "{{ trigger.body.service }}"
