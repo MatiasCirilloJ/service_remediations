@@ -15,4 +15,4 @@ action:
   ref: service_remediations_pack.service_remediations_action
   description: Service remediations in StackStorm with ssh
   parameters:
-    messgae: "{{ trigger.body.message }}"
+    message: "{{ trigger.body.message }}"
