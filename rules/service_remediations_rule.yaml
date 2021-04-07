@@ -8,11 +8,11 @@ trigger:
   parameters:
     url: "serv_remed"
 criteria:
-  trigger.body.service:
+  trigger.body.message:
     type: exists
     pattern: {}
 action:
   ref: service_remediations_pack.service_remediations_action
   description: Service remediations in StackStorm with ssh
   parameters:
-    queue: "{{ trigger.body.service }}"
+    messgae: "{{ trigger.body.message }}"
