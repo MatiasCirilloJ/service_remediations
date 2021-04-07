@@ -7,7 +7,7 @@ class MyEchoAction(Action):
     def run(self, message, id="", idTag="", levelTag="", messageField="", durationField=""):
         try:
             with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write(message)
+                f.write(message + "\n")
                 return (True, "Success")
         except IOError:
             return (False, "File not accessible")
