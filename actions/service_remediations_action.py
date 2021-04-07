@@ -4,7 +4,7 @@ import os
 from st2common.runners.base_action import Action
 
 class MyEchoAction(Action):
-    def run(self, message):
+    def run(self, message, id="", idTag="", levelTag="", messageField="", durationField=""):
         try:
             with open("logs.txt", "a") as f:
                 f.write(message)
