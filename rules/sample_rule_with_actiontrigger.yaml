@@ -1,6 +1,7 @@
 ---
 name: "sample_rule_with_actiontrigger"
-pack: "examples"
+pack: "service_remediations_pack"
+ref: "service_remediations_pack.sample_rule_with_actiontrigger"
 description: "Sample rule firing on action completion."
 enabled: true
 
