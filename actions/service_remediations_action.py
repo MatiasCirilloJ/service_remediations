@@ -14,7 +14,7 @@ class MyEchoAction(Action):
             service = message.split()[0]
             value = int(message[-1])
             if service == "NEP@L_Controller" and value != 0:
-                logging.basicConfig(filename='action.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+                logging.basicConfig(filename='/opt/stackstorm/packs/service_remediations_pack/actions/action.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
                 logging.error('Testeo de logging')
                 #os.system("st2 run core.remote hosts='10.54.158.194' username='root' private_key='/home/stanley/.ssh/id_rsa' cmd='cd /opt/django-nepal-be && docker-compose stop)
                 #time.sleep(30)
