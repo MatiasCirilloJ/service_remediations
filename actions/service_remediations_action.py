@@ -14,9 +14,11 @@ class MyEchoAction(Action):
             service = message.split()[0]
             value = int(message[-1])
             if service == "NEP@L_Controller" and value != 0:
-                os.system("st2 rule disable remediations_pack.service_remediations_rule")
+                os.system("st2 run core.local cmd='st2 rule disable remediations_pack.service_remediations_rule'")
                 logging.basicConfig(filename='/opt/stackstorm/packs/service_remediations_pack/actions/action.log', format='%(name)s - %(levelname)s - %(message)s')
                 logging.error(message)
+                logging.basicConfig(filename='/opt/stackstorm/packs/service_remediations_pack/actions/action.log', format='%(name)s - %(levelname)s - %(message)s')
+                logging.debug("test")
                 time.sleep(30)
                 os.system("st2 rule enable remediations_pack.service_remediations_rule")
                 #os.system("st2 run core.remote hosts='10.54.158.194' username='root' private_key='/home/stanley/.ssh/id_rsa' cmd='cd /opt/django-nepal-be && docker-compose stop)
