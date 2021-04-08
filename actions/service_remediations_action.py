@@ -10,7 +10,6 @@ class MyEchoAction(Action):
         
         try:
             with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                print("LLEGÓ A 2")
                 f.write(message + "\n")
             service = message.split()[0]
             value = int(message[-1])
