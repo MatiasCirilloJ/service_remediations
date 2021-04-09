@@ -31,7 +31,7 @@ class ServiceRemediationsAction(Action):
                 time.sleep(20)
                 os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
                 os.system(IO_rule.format('enable'))    #Enable webhook rule
-            elif service == "NEP@L_SysLog":
+            elif service == "NEP@L_SysLog" and value != 0:
                 os.system(IO_rule.format('disable'))    #Disable webhook rule
                 os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
                 time.sleep(20)
