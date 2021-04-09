@@ -25,11 +25,11 @@ class ServiceRemediationsAction(Action):
                 remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
                 os.system(IO_rule.format('disable'))    #Disable webhook rule
                 if service == "NEP@L_Controller" and value != 0:
-                    os.system(controller.format(service_data[service]['cmd']['stop']))
+                    os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
                     time.sleep(20)
-                    os.system(controller.format(service_data[service]['cmd']['up']))
+                    os.system(remote_with_service.format(service_data[service]['cmd']['up']))
                     time.sleep(20)
-                    os.system(controller.format(service_data[service]['cmd']['systemctl']))
+                    os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
                 os.system(IO_rule.format('enable'))    #Enable webhook rule
             return (True, "Success")
 
