@@ -36,7 +36,7 @@ class ServiceRemediationsAction(Action):
                 os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
                 time.sleep(30)
                 os.system(remote_with_service.format(service_data[service]['cmd']['up']))
-                time.sleep(50)
+                time.sleep(60)
                 os.system(IO_rule.format('enable'))    #Enable webhook rule
             else:
                 pass
