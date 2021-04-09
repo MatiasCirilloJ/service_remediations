@@ -27,8 +27,11 @@ class ServiceRemediationsAction(Action):
                 if service == "NEP@L_Controller" and value != 0:
                     with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                         f.write(remote_with_service + "\n")
+                        f.write(IO_rule.format('disable') + "\n")
                         f.write(remote_with_service.format(service_data[service]['cmd']['stop']) + "\n")
                         f.write(remote_with_service.format(service_data[service]['cmd']['up']) + "\n")
+                        f.write(remote_with_service.format(service_data[service]['cmd']['systemctl']) + "\n")
+                        f.write(IO_rule.format('enable') + "\n")
                     time.sleep(20)
                     #os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
                     #time.sleep(20)
