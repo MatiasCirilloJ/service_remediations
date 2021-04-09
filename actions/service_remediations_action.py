@@ -25,11 +25,16 @@ class ServiceRemediationsAction(Action):
                 remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
                 os.system(IO_rule.format('disable'))    #Disable webhook rule
                 if service == "NEP@L_Controller" and value != 0:
-                    os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
+                    with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                        f.write(remote_with_service + "\n")
+                        f.write(remote_with_service.format(service_data[service]['cmd']['stop']) + "\n")
+                        f.write(remote_with_service.format(service_data[service]['cmd']['up']) + "\n")
                     time.sleep(20)
-                    os.system(remote_with_service.format(service_data[service]['cmd']['up']))
-                    time.sleep(20)
-                    os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
+                    #os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
+                    #time.sleep(20)
+                    #os.system(remote_with_service.format(service_data[service]['cmd']['up']))
+                    #time.sleep(20)
+                    #os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
                 os.system(IO_rule.format('enable'))    #Enable webhook rule
             return (True, "Success")
 
