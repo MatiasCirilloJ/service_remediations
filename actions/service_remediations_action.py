@@ -21,12 +21,11 @@ class ServiceRemediationsAction(Action):
             service = message.split()[0]
             value = int(message[-1])
 
-            if service in service_data:
-                remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
+            remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
                 
-                if service == "NEP@L_Controller" and value != 0:
-                    os.system(IO_rule.format('disable'))    #Disable webhook rule
-                    #with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+            if service == "NEP@L_Controller" and value != 0:
+                os.system(IO_rule.format('disable'))    #Disable webhook rule
+                #with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     #    f.write(remote_with_service + "\n")
                     #    f.write(IO_rule.format('disable') + "\n")
                     #    f.write(remote_with_service.format(service_data[service]['cmd']['stop']) + "\n")
@@ -34,11 +33,11 @@ class ServiceRemediationsAction(Action):
                     #    f.write(remote_with_service.format(service_data[service]['cmd']['systemctl']) + "\n")
                     #    f.write(IO_rule.format('enable') + "\n")
                     #time.sleep(20)
-                    os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
-                    time.sleep(20)
-                    os.system(remote_with_service.format(service_data[service]['cmd']['up']))
-                    time.sleep(20)
-                    os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
+                os.system(remote_with_service.format(service_data[service]['cmd']['stop']))
+                time.sleep(20)
+                os.system(remote_with_service.format(service_data[service]['cmd']['up']))
+                time.sleep(20)
+                os.system(remote_with_service.format(service_data[service]['cmd']['systemctl']))
                 os.system(IO_rule.format('enable'))    #Enable webhook rule
             return (True, "Success")
 
