@@ -1,0 +1,14 @@
+{
+    "NEP@L_Controller":
+        {
+            "host":"'10.54.158.194'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
+            "cmd":
+                {
+                    "stop":"'cd /opt/django-nepal-be && docker-compose stop'", 
+                    "up": "'cd /opt/django-nepal-be && docker-compose up -d'", 
+                    "systemctl": "'systemctl stop nodeserver && systemctl start nodeserver'"
+                }
+        }
+}
