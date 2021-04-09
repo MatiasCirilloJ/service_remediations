@@ -11,7 +11,7 @@
                     "systemctl": "'systemctl stop nodeserver && systemctl start nodeserver'"
                 }
         },
-    "Nep@l_Sysylog":
+    "NEP@l_Sysylog":
         {
             "host":"'10.54.158.25'", 
             "username":"'root'", 
