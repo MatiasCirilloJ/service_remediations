@@ -9,9 +9,7 @@ def send_command(remote, io_rule, service, service_data):
     remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
     os.system(io_rule.format('disable'))    #Disable webhook rule
     for cmd in service_data[service]['cmd']:
-        #os.system(remote_with_service.format(service_data[service]['cmd'][cmd]))
-        with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-            f.write(remote_with_service.format(service_data[service]['cmd'][cmd]) + "\n")
+        os.system(remote_with_service.format(service_data[service]['cmd'][cmd]))
         time.sleep(20)
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
