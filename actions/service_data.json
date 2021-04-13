@@ -1,4 +1,9 @@
-{
+{   
+    "Commands":
+        {
+            "IO_rule": "st2 rule {} service_remediations_pack.service_remediations_rule",
+            "remote": "st2 run core.remote hosts={} username={} private_key={} cmd={}"
+        },
     "NEP@L_Controller":
         {
             "host":"'10.54.158.194'", 
@@ -20,6 +25,28 @@
                 {
                     "stop":"'cd /home/fpunta/docker-elk/ && docker-compose stop'", 
                     "up": "'cd /home/fpunta/docker-elk/ && docker-compose up -d'"
+                }
+        },
+    "NEP@L_Monitoring":
+        {
+            "host":"'10.54.158.207'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
+            "cmd":
+                {
+                    "stop":"'cd /opt/tick/ && docker-compose stop'", 
+                    "up": "'cd /opt/tick/ && docker-compose up -d'"
+                }
+        },
+    "NEP@L_Inventory":
+        {
+            "host":"'10.54.158.192'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
+            "cmd":
+                {
+                    "stop":"'cd /opt/netbox-docker/ && docker-compose stop'", 
+                    "up": "'cd /opt/netbox-docker/ && docker-compose up -d'"
                 }
         }
 }
