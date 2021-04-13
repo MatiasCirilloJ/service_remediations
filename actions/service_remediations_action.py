@@ -36,5 +36,3 @@ class ServiceRemediationsAction(Action):
 
         except IOError:
             return (False, "File not accessible")
-        except:
-            return (False)
