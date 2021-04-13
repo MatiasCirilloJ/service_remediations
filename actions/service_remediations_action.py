@@ -5,7 +5,7 @@ import json
 
 from st2common.runners.base_action import Action
 
-def send_command(service, service_data):
+def send_command(remote, io_rule, service, service_data):
     remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
     os.system(io_rule.format('disable'))    #Disable webhook rule
     for cmd in service_data[service]['cmd']:
@@ -30,7 +30,7 @@ class ServiceRemediationsAction(Action):
             value = int(message[-1])
 
             if service in service_data and value != 0:
-                send_command(service, service_data)
+                send_command(remote, io_rule, service, service_data)
 
             return (True, "Success")
 
