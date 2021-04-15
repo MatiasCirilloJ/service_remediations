@@ -10,7 +10,7 @@ def send_command(remote, io_rule, service, service_data):
     os.system(io_rule.format('disable'))    #Disable webhook rule
     for cmd in service_data[service]['cmd']:
         os.system(remote_with_service.format(service_data[service]['cmd'][cmd]))
-        time.sleep(20)
+        time.sleep(30)
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
 class ServiceRemediationsAction(Action):
