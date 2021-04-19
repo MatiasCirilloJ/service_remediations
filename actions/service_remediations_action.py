@@ -1,4 +1,5 @@
 import sys
+sys.path.insert(1, '/opt/stackstorm/packs/my_echo_action/actions')
 import os
 import time
 import json
@@ -16,10 +17,10 @@ def send_command(remote, io_rule, service, service_data):
 class ServiceRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
-            with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+            with open("logs.txt", "a") as f:
                 f.write(message + "\n")
 
-            with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
+            with open('service_data.json') as file:
                 service_data = json.load(file)
             io_rule = service_data['Commands']['IO_rule']
             remote = service_data['Commands']['remote']

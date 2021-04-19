@@ -1,16 +1,16 @@
+import sys
+sys.path.insert(1, '/opt/stackstorm/service_remediations_pack/actions')
 import time
-from .opt.stackstorm.packs.service_remediations_pack.actions.service_remediations_action.ServiceRemediationsAction import *
+from os import system
 
 def ejecutaScript():
-    with open("/opt/stackstorm/packs/my_echo_action/actions/logs.txt", "rb") as f:
-            h1 = hashlib.md5(f.read()).hexdigest()
+    with open("logs.txt", "rb") as f:
+        h1 = hashlib.md5(f.read()).hexdigest()
     time.sleep(300)
-    with open("/opt/stackstorm/packs/my_echo_action/actions/logs.txt", "rb") as f:
-            h2 = hashlib.md5(f.read()).hexdigest()
+    with open("logs.txt", "rb") as f:
+        h2 = hashlib.md5(f.read()).hexdigest()
     if h1 == h2:
-        ServiceRemediationsAction.run(message = "NEP@L_Monitoring 0")
-        with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write("Monitoring apagado" + "\n")
+        system("st2 action execute service_remediations_pack.service_remediations_action message='NEP@L_Monitoring 1'")
 
 while True:
     ejecutaScript()
