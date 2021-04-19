@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(1, '/opt/stackstorm/packs/my_echo_action/actions')
+sys.path.insert(1, '/opt/stackstorm/service_remediations_pack/actions')
 import os
 import time
 import json
