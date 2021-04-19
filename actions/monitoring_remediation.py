@@ -1,5 +1,5 @@
 import time
-from ServiceRemediationsAction import *
+from .opt.stackstorm.packs.service_remediations_pack.actions.service_remediations_action.ServiceRemediationsAction import *
 
 def ejecutaScript():
     with open("/opt/stackstorm/packs/my_echo_action/actions/logs.txt", "rb") as f:
