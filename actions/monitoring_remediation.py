@@ -1,7 +1,6 @@
-import sys
-sys.path.insert(1, '/opt/stackstorm/packs/service_remediations_pack/actions')
 import time
 from os import system
+import hashlib
 
 def ejecutaScript():
     with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "rb") as f:
