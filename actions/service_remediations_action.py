@@ -25,10 +25,12 @@ class ServiceRemediationsAction(Action):
             remote = service_data['Commands']['remote']
 
             service = message.split()[0]
-            value = int(message[-1])
-
-            if service in service_data and value != 0:
-                send_command(remote, io_rule, service, service_data)
+            try:
+                value = int(message[-1])
+                if service in service_data and value != 0:
+                    send_command(remote, io_rule, service, service_data)
+            except ValueError:
+                print("No tiene valor")
 
             return (True, "Success")
 
