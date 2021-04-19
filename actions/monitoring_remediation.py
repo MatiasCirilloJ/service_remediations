@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(1, '/opt/stackstorm/service_remediations_pack/actions')
+sys.path.insert(1, '/opt/stackstorm/packs/service_remediations_pack/actions')
 import time
 from os import system
 
