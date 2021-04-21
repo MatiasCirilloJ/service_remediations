@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(1, '/opt/stackstorm/packs/service_remediations_pack/actions')
 import os
 import time
 import json
@@ -32,6 +30,7 @@ class ServiceRemediationsAction(Action):
                     send_command(remote, io_rule, service, service_data)
             except ValueError:
                 print("No tiene valor")
+                return (False, "Does not contain any value")
 
             return (True, "Success")
 
