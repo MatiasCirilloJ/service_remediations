@@ -16,16 +16,19 @@ def send_command(remote, io_rule, service, service_data):
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
 def send_email(host, data_email):
-    mail_content = 'El host {} se encuentra apagado.'.format(host)
+    mail_content = "El host %s se encuentra apagado." % host
     #The mail addresses and password
     sender_address = data_email['sender']
     sender_pass = data_email['sender_pass']
     receiver_address = data_email['receiver']
+    cc = data_email['cc']
+    rcpt = [receiver_address] + cc
     #Setup the MIME
     message = MIMEMultipart()
-    message['From'] = sender_address
+    message['From'] = "Remediation SS <%s>" % sender_address
     message['To'] = receiver_address
-    message['Subject'] = data_email['subject']   #The subject line
+    message['CC'] = "%s\r\n" % ",".join(cc)
+    message['Subject'] = data_email['subject'] #The subject line
     #The body and the attachments for the mail
     message.attach(MIMEText(mail_content, 'plain'))
     #Create SMTP session for sending the mail
@@ -33,7 +36,7 @@ def send_email(host, data_email):
     session.starttls() #enable security
     session.login(sender_address, sender_pass) #login with mail_id and password
     text = message.as_string()
-    session.sendmail(sender_address, receiver_address, text)
+    session.sendmail(sender_address, rcpt, text)
     session.quit()
 
 class ServiceRemediationsAction(Action):
