@@ -1,4 +1,11 @@
 {   
+    "Email":
+        {
+            "sender":"remediation.ss@gmail.com",
+            "sender_pass":"Cordob12",
+            "receiver":"matiascirillo@hotmail.com",
+            "subject":"CRITICAL host"
+        },
     "Commands":
         {
             "IO_rule": "st2 rule {} service_remediations_pack.service_remediations_rule",

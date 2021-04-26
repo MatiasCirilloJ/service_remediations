@@ -1,6 +1,9 @@
 import os
 import time
 import json
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from st2common.runners.base_action import Action
 
@@ -11,6 +14,27 @@ def send_command(remote, io_rule, service, service_data):
         os.system(remote_with_service.format(service_data[service]['cmd'][cmd]))
         time.sleep(30)
     os.system(io_rule.format('enable'))    #Enable webhook rule
+
+def send_email(host, data_email):
+    mail_content = 'El host {} se encuentra apagado.'.format(host)
+    #The mail addresses and password
+    sender_address = data_email['sender']
+    sender_pass = data_email['sender_pass']
+    receiver_address = data_email['receiver']
+    #Setup the MIME
+    message = MIMEMultipart()
+    message['From'] = sender_address
+    message['To'] = receiver_address
+    message['Subject'] = data_email['subject']   #The subject line
+    #The body and the attachments for the mail
+    message.attach(MIMEText(mail_content, 'plain'))
+    #Create SMTP session for sending the mail
+    session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    session.starttls() #enable security
+    session.login(sender_address, sender_pass) #login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
 
 class ServiceRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
@@ -23,14 +47,13 @@ class ServiceRemediationsAction(Action):
             io_rule = service_data['Commands']['IO_rule']
             remote = service_data['Commands']['remote']
 
-            service = message.split()[0]
-            try:
-                value = int(message[-1])
-                if service in service_data and value != 0:
-                    send_command(remote, io_rule, service, service_data)
-            except ValueError:
-                print("No tiene valor")
-                return (False, "Does not contain any value")
+            service = message.split()[0].split(sep="=")[1] if '=' in message else message.split()[0]
+
+            if service in service_data and int(message[-1]) != 0:
+                send_command(remote, io_rule, service, service_data)
+            elif 'deadman' in service and 'CRITICAL' in message:
+                host = service.split(sep="=")[1]
+                send_email(host, service_data['Email'])
 
             return (True, "Success")
 
