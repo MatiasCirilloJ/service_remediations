@@ -17,6 +17,8 @@ class ServiceRemediationsAction(Action):
         try:
             with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                 f.write(message + "\n")
+            with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                f.write(id + "\n")    
 
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)
