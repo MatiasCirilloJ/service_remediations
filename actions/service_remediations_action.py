@@ -16,9 +16,7 @@ class ServiceRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
             with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write(message + "\n")
-            with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write(id + "\n")    
+                f.write(message + "\n")   
 
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)

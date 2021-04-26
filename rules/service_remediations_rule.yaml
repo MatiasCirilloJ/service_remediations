@@ -16,4 +16,3 @@ action:
   description: Service remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"
-    id: "{{ trigger.body.id }}"
