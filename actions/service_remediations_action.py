@@ -50,7 +50,7 @@ class ServiceRemediationsAction(Action):
             io_rule = service_data['Commands']['IO_rule']
             remote = service_data['Commands']['remote']
 
-            service = message.split()[0].split(sep="=")[1] if '=' in message else message.split()[0]
+            service = message.split()[0]
 
             if service in service_data and int(message[-1]) != 0:
                 send_command(remote, io_rule, service, service_data)
