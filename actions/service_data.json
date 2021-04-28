@@ -12,7 +12,7 @@
             "IO_rule": "st2 rule {} service_remediations_pack.service_remediations_rule",
             "remote": "st2 run core.remote hosts={} username={} private_key={} cmd={}"
         },
-    "NEP@L_ControllerERROR":
+    "NEP@L_Controller":
         {
             "host":"'10.54.158.194'", 
             "username":"'root'", 
