@@ -22,7 +22,7 @@ class ServiceRemediationsAction(Action):
             if service in service_data and int(message[-1]) != 1:
                 command = "'systemctl {} restart'".format(service)
                 os.system(io_rule.format('disable'))
-                os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], command))
+                os.system(remote.format("'10.54.158.95'", "'root'", "'/home/stanley/.ssh/id_rsa'", command))
                 time.sleep(30)
                 os.system(io_rule.format('enable'))
 
