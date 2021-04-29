@@ -11,6 +11,12 @@ criteria:
   trigger.body.message:
     type: exists
     pattern: {}
+  trigger.body.message:
+    type: "icontains"
+    pattern: "critical"
+  trigger.body.message:
+    type: "incontains"
+    pattern: "deadman"
 action:
   ref: service_remediations_pack.service_remediations_action
   description: Service remediations in StackStorm with ssh
