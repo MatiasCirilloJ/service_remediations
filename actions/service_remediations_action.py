@@ -26,7 +26,7 @@ class ServiceRemediationsAction(Action):
 
             service = message.split()[0]
 
-            if service in service_data:
+            if service in service_data and int(message[-1]) != 0:
                 send_command(remote, io_rule, service, service_data)
 
             return (True, "Success")

@@ -40,8 +40,9 @@ class ServiceRemediationsAction(Action):
                 f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
 
             service = message.split()[0]
-            host = service.split(sep="=")[1]
-            send_email(host)
+            if 'deadman' in service and 'CRITICAL' in message:
+                host = service.split(sep="=")[1]
+                send_email(host, service_data['Email'])
 
             return (True, "Success")
 
