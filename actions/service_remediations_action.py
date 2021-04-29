@@ -5,14 +5,6 @@ from datetime import datetime
 
 from st2common.runners.base_action import Action
 
-# def send_command(remote, io_rule, service, service_data):
-#     remote_with_service = remote.format(service_data[service]['host'], service_data[service]['username'], service_data[service]['private_key'], '{}')
-#     os.system(io_rule.format('disable'))    #Disable webhook rule
-#     for cmd in service_data[service]['cmd']:
-#         os.system(remote_with_service.format(service_data[service]['cmd'][cmd]))
-#         time.sleep(30)
-#     os.system(io_rule.format('enable'))    #Enable webhook rule
-
 class ServiceRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
@@ -23,15 +15,16 @@ class ServiceRemediationsAction(Action):
                 service_data = json.load(file)
             io_rule = service_data['Commands']['IO_rule']["service"]
             remote = service_data['Commands']['remote']
-
+            
+            host = message.split()[0]
             service = message.split()[2]
 
-            if int(message[-1]) != 1:
+            if service in service_data and int(message[-1]) != 1:
+                command = "'systemctl {} restart'".format(service)
                 os.system(io_rule.format('disable'))
-                os.system("systemctl {} restart".format(service))
+                os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], command))
                 time.sleep(30)
                 os.system(io_rule.format('enable'))
-                #send_command(remote, io_rule, service, service_data)
 
             return (True, "Success")
 
