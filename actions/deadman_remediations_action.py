@@ -43,7 +43,7 @@ class DeadmanRemediationsAction(Action):
             service = message.split()[0]
             if 'deadman' in service and 'CRITICAL' in message:
                 host = service.split(sep="=")[1]
-                send_email(host, service_data['Email'])
+                send_email(host)
 
             return (True, "Success")
 
