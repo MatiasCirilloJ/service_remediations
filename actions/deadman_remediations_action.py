@@ -33,7 +33,7 @@ def send_email(host):
     session.sendmail(sender_address, rcpt, text)
     session.quit()
 
-class ServiceRemediationsAction(Action):
+class DeadmanRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
             with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:

@@ -1,0 +1,24 @@
+---
+pack: service_remediations_pack
+ref: service_remediations_pack.docker_remediations_rule
+name: docker_remediations_rule
+enabled: true
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "dock_remed"
+criteria:
+  trigger.body.message:
+    type: exists
+    pattern: {}
+  trigger.body.message:
+    type: "icontains"
+    pattern: "critical"
+  trigger.body.message:
+    type: "incontains"
+    pattern: "deadman"
+action:
+  ref: service_remediations_pack.docker_remediations_action
+  description: Docker remediations in StackStorm with ssh
+  parameters:
+    message: "{{ trigger.body.message }}"

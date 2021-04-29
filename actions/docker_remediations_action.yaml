@@ -1,0 +1,37 @@
+---
+name: "docker_remediations_action"
+runner_type: "python-script"
+description: "Docker remediations in StackStorm with ssh"
+enabled: true
+entry_point: "docker_remediations_action.py"
+parameters:
+    message:
+        type: "string"
+        description: "Docker to repair."
+        required: true
+        position: 0
+    id:
+        type: "string"
+        description: "Id host to repair."
+        required: false
+        position: 1
+    idTag:
+        type: "string"
+        description: "idTag host to repair."
+        required: false
+        position: 2
+    levelTag:
+        type: "string"
+        description: "levelTag host to repair."
+        required: false
+        position: 3
+    messageField:
+        type: "string"
+        description: "messageField host to repair."
+        required: false
+        position: 4
+    durationField:
+        type: "string"
+        description: "durationField host to repair."
+        required: false
+        position: 5
