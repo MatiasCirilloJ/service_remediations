@@ -67,5 +67,17 @@
                 "host":"'10.54.158.95'", 
                 "username":"'root'", 
                 "private_key":"'/home/stanley/.ssh/id_rsa'"
-            }
+            },
+    "NEP@L_CICD":
+        {
+            "host":"'10.54.158.250'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'"
+        },
+    "NEP@L_DataBase":
+        {
+            "host":"'10.54.158.129'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'"
+        }
 }

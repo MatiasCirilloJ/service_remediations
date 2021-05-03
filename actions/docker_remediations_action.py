@@ -21,7 +21,7 @@ class DockerRemediationsAction(Action):
             io_rule = service_data['Commands']['IO_rule']["docker"]
             remote = service_data['Commands']['remote']
 
-            service = message.split()[0] if "NSO" not in message.split()[0] else message.split()[0]+'-'
+            service = message.split()[0] if ("NSO" not in message.split()[0]) and ("CICD" not in message.split()[0]) and ("DataBase" not in message.split()[0]) else message.split()[0]+'-'
 
             if service in service_data and int(message[-1]) != 0:
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
