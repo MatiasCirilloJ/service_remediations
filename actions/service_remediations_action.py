@@ -6,10 +6,13 @@ from datetime import datetime
 from st2common.runners.base_action import Action
 
 def send_command(remote, io_rule, service, host, service_data):
-    command = "'systemctl restart {}'".format(service)
+    command = service_data["Commands"]["systemctl"].format(service)
     os.system(io_rule.format('disable'))
     os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], command))
-    time.sleep(30)
+    time.sleep(10)
+    if "Controller" in host:
+        os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], service_data[host]['cmd']["systemctl"]))
+    time.sleep(10)
     os.system(io_rule.format('enable'))
 
 class ServiceRemediationsAction(Action):
