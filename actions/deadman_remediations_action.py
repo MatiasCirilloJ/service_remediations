@@ -37,11 +37,10 @@ def send_email(host):
 class DeadmanRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
-            with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
-
             service = message.split()[0]
             if 'deadman' in service and 'CRITICAL' in message:
+                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                    f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
                 host = service.split(sep="=")[1]
                 send_email(host)
 

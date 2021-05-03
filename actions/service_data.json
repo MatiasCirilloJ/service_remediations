@@ -60,5 +60,11 @@
                     "stop":"'cd /opt/netbox-docker/ && docker-compose stop'", 
                     "up": "'cd /opt/netbox-docker/ && docker-compose up -d'"
                 }
-        }
+        },
+    "NEP@L_NSO":
+            {
+                "host":"'10.54.158.95'", 
+                "username":"'root'", 
+                "private_key":"'/home/stanley/.ssh/id_rsa'"
+            }
 }

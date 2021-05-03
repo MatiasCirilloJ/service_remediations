@@ -16,17 +16,16 @@ def send_command(remote, io_rule, service, service_data):
 class DockerRemediationsAction(Action):
     def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
         try:
-            with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
-
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)
             io_rule = service_data['Commands']['IO_rule']["docker"]
             remote = service_data['Commands']['remote']
 
-            service = message.split()[0]
+            service = message.split()[0] if "NSO" not in message.split()[0] else message.split()[0]+'-'
 
             if service in service_data and int(message[-1]) != 0:
+                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                    f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
                 send_command(remote, io_rule, service, service_data)
 
             return (True, "Success")
