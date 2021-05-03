@@ -23,7 +23,7 @@ class ServiceRemediationsAction(Action):
             host = message.split()[0]
             service = message.split()[2]
 
-            if host in service_data and int(message[-1]) != 1:
+            if host in service_data and int(message[-1]) not in (1,2):
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
                 send_command(remote, io_rule, service, hots, service_data)
