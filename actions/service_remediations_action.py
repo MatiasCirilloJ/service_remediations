@@ -8,10 +8,10 @@ from st2common.runners.base_action import Action
 def send_command(remote, io_rule, service, host, service_data):
     command = service_data["Commands"]["systemctl"].format(service)
     os.system(io_rule.format('disable'))
-    os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], command))
+    os.system(remote.format(service_data[host]['host'], service_data["Commands"]['username'], service_data["Commands"]['private_key'], command))
     time.sleep(30)
     if "Controller" in host:
-        os.system(remote.format(service_data[host]['host'], service_data[host]['username'], service_data[host]['private_key'], service_data[host]['cmd']["systemctl"]))
+        os.system(remote.format(service_data[host]['host'], service_data["Commands"]['username'], service_data["Commands"]['private_key'], service_data[host]['cmd']["systemctl"]))
     time.sleep(30)
     os.system(io_rule.format('enable'))
 
@@ -32,6 +32,6 @@ class ServiceRemediationsAction(Action):
                 send_command(remote, io_rule, service, host, service_data)
 
             return (True, "Success")
-
+        
         except IOError:
             return (False, "File not accessible")
