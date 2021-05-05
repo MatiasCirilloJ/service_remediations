@@ -27,11 +27,11 @@ class DockerRemediationsAction(Action):
                 
                 io_rule = service_data['Commands']['IO_rule']["docker"]
                 remote = service_data['Commands']['remote']
-                local = service_data['Commnads']['local']
+                local = service_data['Commands']['local']
 
                 execution = subprocess.check_output("st2 execution list -n 1 -j", shell=True)
                 id_execution = json.loads(execution)[0]["id"]
-                
+
                 send_command(remote, io_rule, service, service_data)
 
                 output = subprocess.check_output("st2 execution get {}".format(id_), shell=True)
