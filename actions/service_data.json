@@ -15,14 +15,13 @@
                 "docker": "st2 rule {} service_remediations_pack.docker_remediations_rule"
             },
             "remote": "st2 run core.remote hosts={} username={} private_key={} cmd={}",
-            "local":"st2 run core.local cmd={}",
-            "systemctl": "'systemctl stop {0} && systemctl start {0}'",
-			"username": "'root'", 
-            "private_key": "'/home/stanley/.ssh/id_rsa'"
+            "systemctl": "'systemctl stop {0} && systemctl start {0}'"
         },
     "NEP@L_Controller":
         {
-            "host":"'10.54.158.194'",
+            "host":"'10.54.158.194'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
             "cmd":
                 {
                     "stop":"'cd /opt/django-nepal-be && docker-compose stop'", 
@@ -32,7 +31,9 @@
         },
     "NEP@L_SysLog":
         {
-            "host":"'10.54.158.25'",
+            "host":"'10.54.158.25'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
             "cmd":
                 {
                     "stop":"'cd /home/fpunta/docker-elk/ && docker-compose stop'", 
@@ -41,7 +42,9 @@
         },
     "NEP@L_Monitoring":
         {
-            "host":"'10.54.158.207'",
+            "host":"'10.54.158.207'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
             "cmd":
                 {
                     "stop":"'cd /opt/tick/ && docker-compose stop'", 
@@ -50,7 +53,9 @@
         },
     "NEP@L_Inventory":
         {
-            "host":"'10.54.158.192'",
+            "host":"'10.54.158.192'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'", 
             "cmd":
                 {
                     "stop":"'cd /opt/netbox-docker/ && docker-compose stop'", 
@@ -59,14 +64,20 @@
         },
     "NEP@L_NSO":
             {
-                "host":"'10.54.158.95'"
+                "host":"'10.54.158.95'", 
+                "username":"'root'", 
+                "private_key":"'/home/stanley/.ssh/id_rsa'"
             },
     "NEP@L_CICD":
         {
-            "host":"'10.54.158.250'"
+            "host":"'10.54.158.250'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'"
         },
     "NEP@L_DataBase":
         {
-            "host":"'10.54.158.129'"
+            "host":"'10.54.158.129'", 
+            "username":"'root'", 
+            "private_key":"'/home/stanley/.ssh/id_rsa'"
         }
 }
