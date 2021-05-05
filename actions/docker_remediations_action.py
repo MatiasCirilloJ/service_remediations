@@ -22,8 +22,8 @@ class DockerRemediationsAction(Action):
             service = message.split()[0]
             
             if service in service_data and 'cmd' in service_data[service] and int(message[-1]) != 0:
-                #ith open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                #    f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
+                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                    f.write("message: {}\n".format(message))
                 
                 io_rule = service_data['Commands']['IO_rule']["docker"]
                 remote = service_data['Commands']['remote']
@@ -34,9 +34,9 @@ class DockerRemediationsAction(Action):
 
                 send_command(remote, io_rule, service, service_data)
 
-                output = subprocess.check_output("st2 execution get {}".format(id_), shell=True)
+                output = subprocess.check_output("st2 execution get {}".format(id_execution), shell=True)
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                    f.write("-----------\n" + output.decode("utf-8") + "\n" + "-----------\n")
+                    f.write(output.decode("utf-8") + "\n" + "-----------\n")
                 return (True, "Success")
 
             return (False, "Message doesn't match")
