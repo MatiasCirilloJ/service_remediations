@@ -26,6 +26,8 @@ def send_command(remote, io_rule, host, message, service_data):
         os.system(remote_with_service.format(service_data[host]['cmd'][cmd]))
         id_exec = exec()
         time.sleep(30)
+        if "SysLog" in host:
+            time.sleep(90)
         status = exec(id_exec)
         syslog("[Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format(service_data[host]['host'], message, service_data[host]['cmd'][cmd], status))
     os.system(io_rule.format('enable'))    #Enable webhook rule

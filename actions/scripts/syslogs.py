@@ -26,10 +26,13 @@ def syslog(message, level=LEVEL['notice'],
     """
     Send syslog TCP packet to given host and port.
     """
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((host,port))
-    data = '<%d> %s' % (level, message)
-    sock.send(data.encode())
-    sock.close()
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((host,port))
+        data = '<%d> %s' % (level, message)
+        sock.send(data.encode())
+        sock.close()
+    except:
+        pass
 
 #syslog(message=data, level=0, host='10.54.158.25', port=udp5000)
