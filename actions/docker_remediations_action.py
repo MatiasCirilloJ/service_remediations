@@ -1,4 +1,5 @@
 import os
+import subprocess
 import time
 import json
 from scripts.syslogs import syslog

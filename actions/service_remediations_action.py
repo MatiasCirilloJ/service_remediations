@@ -1,7 +1,8 @@
-  
 import os
+import subprocess
 import time
 import json
+from scripts.syslogs import syslog
 from datetime import datetime
 from pytz import timezone
 tz = timezone("America/Buenos_Aires")
