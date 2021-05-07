@@ -16,7 +16,7 @@ def exec(id_exec = None):
         return id_execution
     else:
         jstatus = subprocess.check_output("st2 execution get {} --attr 'status' -j".format(id_exec), shell=True)
-        status = json.loads(execution)["status"]
+        status = json.loads(jstatus)["status"]
         return status
 
 def send_command(remote, io_rule, host, message, service_data):
