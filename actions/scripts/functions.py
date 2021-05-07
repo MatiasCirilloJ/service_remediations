@@ -53,7 +53,7 @@ def exec_status(id_exec = None):
         status = json.loads(jstatus)["status"]
         return status
 
-def send_service_command(remote, io_rule, service, host, service_data):
+def send_service_command(remote, io_rule, service, host, message, service_data):
     command = service_data["Commands"]["systemctl"].format(service)
     os.system(io_rule.format('disable'))
     os.system(remote.format(service_data[host]['host'], service_data["Commands"]['username'], service_data["Commands"]['private_key'], command))

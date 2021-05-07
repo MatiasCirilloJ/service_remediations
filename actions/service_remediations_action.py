@@ -23,7 +23,7 @@ class ServiceRemediationsAction(Action):
             if host in service_data and int(message[-1]) not in (1,2):
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
-                send_service_command(remote, io_rule, service, host, service_data)
+                send_service_command(remote, io_rule, service, host, message, service_data)
                 return (True, "Success")
 
             return (False, "Message doesn't match")
