@@ -3,7 +3,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime
-from functions.syslogs import send_email, syslog
+from scripts.functions import send_email, syslog
 
 from st2common.runners.base_action import Action
 

@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 import json
-from functions.syslogs import send_docker_command
+from scripts.functions import send_docker_command
 from datetime import datetime
 from pytz import timezone
 tz = timezone("America/Buenos_Aires")
