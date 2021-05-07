@@ -27,7 +27,7 @@ def syslog(message, level=LEVEL['notice'],
     Send syslog TCP packet to given host and port.
     """
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((host,port));
+    sock.connect((host,port))
     data = '<%d> %s' % (level, message)
     sock.send(data.encode())
     sock.close()
