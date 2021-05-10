@@ -9,9 +9,6 @@ trigger:
     url: "dock_remed"
 criteria:
   trigger.body.message:
-    type: exists
-    pattern: {}
-  "":
     type: "icontains"
     pattern: "critical"
   "":

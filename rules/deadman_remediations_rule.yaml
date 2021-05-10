@@ -9,9 +9,6 @@ trigger:
     url: "host_deadman"
 criteria:
   trigger.body.message:
-    type: exists
-    pattern: {}
-  "":
     type: "icontains"
     pattern: "critical"
   "":
