@@ -11,12 +11,12 @@ criteria:
   trigger.body.message:
     type: exists
     pattern: {}
-  trigger.body.message:
-    type: "icontains"
-    pattern: "deadman"
   "":
     type: "icontains"
     pattern: "critical"
+  "":
+    type: "icontains"
+    pattern: "deadman"
 action:
   ref: service_remediations_pack.deadman_remediations_action
   description: Deadman remediations in StackStorm with ssh
