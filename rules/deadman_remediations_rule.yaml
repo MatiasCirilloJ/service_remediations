@@ -14,7 +14,7 @@ criteria:
   trigger.body.message:
     type: "icontains"
     pattern: "deadman"
-  :
+  "":
     type: "icontains"
     pattern: "critical"
 action:
