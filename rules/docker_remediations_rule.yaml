@@ -9,8 +9,8 @@ trigger:
     url: "dock_remed"
 criteria:
   trigger.body.message:
-    type: "icontains"
-    pattern: "critical"
+    type: "contains"
+    pattern: "CRITICAL"
   "":
     type: "incontains"
     pattern: "deadman"
