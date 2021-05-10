@@ -9,11 +9,14 @@ trigger:
     url: "dock_remed"
 criteria:
   trigger.body.message:
+    type: exists
+    pattern: {}
+  trigger.body.message:
+    type: "icontains"
+    pattern: "critical"
+  trigger.body.message:
     type: "incontains"
     pattern: "deadman"
-  "":
-    type: "contains"
-    pattern: "CRITICAL"
 action:
   ref: service_remediations_pack.docker_remediations_action
   description: Docker remediations in StackStorm with ssh

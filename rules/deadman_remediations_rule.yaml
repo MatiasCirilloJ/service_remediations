@@ -9,11 +9,14 @@ trigger:
     url: "host_deadman"
 criteria:
   trigger.body.message:
-    type: "icontains"
-    pattern: "critical"
-  "":
+    type: exists
+    pattern: {}
+  trigger.body.message:
     type: "icontains"
     pattern: "deadman"
+  trigger.body.message:
+    type: "icontains"
+    pattern: "critical"
 action:
   ref: service_remediations_pack.deadman_remediations_action
   description: Deadman remediations in StackStorm with ssh
