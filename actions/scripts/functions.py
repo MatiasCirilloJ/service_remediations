@@ -13,7 +13,7 @@ from email.mime.text import MIMEText
 try:
     from pyVim.connect import SmartConnect, Disconnect
 except:
-    os.system("pip install pyvmomi")
+    os.system("/opt/stackstorm/st2/bin/pip install pyvmomi")
     from pyVim.connect import SmartConnect, Disconnect
 
 LEVEL = {
@@ -105,7 +105,7 @@ def send_email(host, poweron=False):
     session.sendmail(sender_address, rcpt, text)
     session.quit()
 
-def VM_remed(vm):
+def vm_remed(vm):
     s = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     s.verify_mode = ssl.CERT_NONE
 
