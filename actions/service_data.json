@@ -27,7 +27,8 @@
                     "stop":"'cd /opt/django-nepal-be && docker-compose stop'", 
                     "up": "'cd /opt/django-nepal-be && docker-compose up -d'", 
                     "systemctl": "'systemctl stop nodeserver && systemctl start nodeserver'"
-                }
+                },
+            "VM":"NEP@L_Controller"
         },
     "NEP@L_SysLog":
         {
@@ -36,7 +37,8 @@
                 {
                     "stop":"'cd /home/fpunta/docker-elk/ && docker-compose stop'", 
                     "up": "'cd /home/fpunta/docker-elk/ && docker-compose up -d'"
-                }
+                },
+            "VM":"Nep@l_Ealstic_Search"
         },
     "NEP@L_Monitoring":
         {
@@ -45,7 +47,8 @@
                 {
                     "stop":"'cd /opt/tick/ && docker-compose stop'", 
                     "up": "'cd /opt/tick/ && docker-compose up -d'"
-                }
+                },
+            "VM":"NEP@L_TickStack"
         },
     "NEP@L_Inventory":
         {
@@ -54,18 +57,22 @@
                 {
                     "stop":"'cd /opt/netbox-docker/ && docker-compose stop'", 
                     "up": "'cd /opt/netbox-docker/ && docker-compose up -d'"
-                }
+                },
+            "VM":"NEP@L_Inventory"
         },
     "NEP@L_NSO":
             {
-                "host":"'10.54.158.95'"
+                "host":"'10.54.158.95'",
+                "VM":"NEP@L_NSO"
             },
     "NEP@L_CICD":
         {
-            "host":"'10.54.158.250'"
+            "host":"'10.54.158.250'",
+            "VM":"NEP@L_Jenkins-CICD"
         },
     "NEP@L_DataBase":
         {
-            "host":"'10.54.158.129'"
+            "host":"'10.54.158.129'",
+            "VM":"NEP@L_MongoDB"
         }
 }

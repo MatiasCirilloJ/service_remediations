@@ -1,28 +1,20 @@
 #!/usr/bin/python
 # -*- encoding: iso-8859-1 -*-
 
-"""
-Python syslog client.
-This code is placed in the public domain by the author.
-Written by Christian Stigen Larsen.
-This is especially neat for Windows users, who (I think) don't
-get any syslog module in the default python installation.
-See RFC3164 for more info -- http://tools.ietf.org/html/rfc3164
-Note that if you intend to send messages to remote servers, their
-syslogd must be started with -r to allow to receive UDP from
-the network.
----------------------------------------------------------------------
-"""
-
 import os
 import subprocess
 import socket
 import time
 import json
 import smtplib
+import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from datetime import datetime
+try:
+    from pyVim.connect import SmartConnect, Disconnect
+except:
+    os.system("pip install pyvmomi")
+    from pyVim.connect import SmartConnect, Disconnect
 
 LEVEL = {
     'emerg': 0, 'alert':1, 'crit': 2, 'err': 3,
@@ -66,7 +58,7 @@ def send_service_command(remote, io_rule, service, host, message, service_data):
         id_exec = exec_status()
         time.sleep(30)
         status = exec_status(id_exec)
-        syslog("[Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format(service_data[host]['host'], message, service_data[host]['cmd']["systemctl"], status))
+        syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Service", service_data[host]['host'], message, service_data[host]['cmd']["systemctl"], status))
     os.system(io_rule.format('enable'))
 
 def send_docker_command(remote, io_rule, host, message, service_data):
@@ -79,15 +71,18 @@ def send_docker_command(remote, io_rule, host, message, service_data):
         if "SysLog" in host:
             time.sleep(90)
         status = exec_status(id_exec)
-        syslog("[Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format(service_data[host]['host'], message, service_data[host]['cmd'][cmd], status))
+        syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Docker", service_data[host]['host'], message, service_data[host]['cmd'][cmd], status))
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
-def send_email(host):
+def send_email(host, poweron=False):
     with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
         service_data = json.load(file)
     data_email = service_data["Email"]
 
-    mail_content = "El host %s se encuentra apagado." % host
+    if poweron:
+        mail_content = "El host %s se encendió." % host
+    else:
+        mail_content = "El host %s se encuentra apagado." % host
     #The mail addresses and password
     sender_address = data_email['sender']
     sender_pass = data_email['sender_pass']
@@ -109,3 +104,33 @@ def send_email(host):
     text = message.as_string()
     session.sendmail(sender_address, rcpt, text)
     session.quit()
+
+def VM_remed(vm):
+    s = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+    s.verify_mode = ssl.CERT_NONE
+
+    c = SmartConnect(host="10.54.153.150", user="vagrant@vsphere.local", pwd='V1w2e3r4t5$', sslContext=s)
+    
+    datacenter = c.content.rootFolder.childEntity
+    for i in datacenter:
+        if i.name == 'HYPERFLEX-INNO-ARG':
+            for j in i.vmFolder.childEntity:
+                if j.name == vm:
+                    if j.guestHeartbeatStatus == "gray":
+                        j.PowerOffVM_Task()
+                        time.sleep(10)
+                        j.PowerOnVM_Task()
+                        return False
+                    elif j.guestHeartbeatStatus == "green":
+                        return True
+                elif j.name == 'David_VMs':
+                    for k in j.childEntity:
+                        if k.name == vm:
+                            if k.guestHeartbeatStatus == "gray":
+                                k.PowerOffVM_Task()
+                                time.sleep(10)
+                                k.PowerOnVM_Task()
+                                return False
+                            elif k.guestHeartbeatStatus == "green":
+                                return True
+    Disconnect(c)

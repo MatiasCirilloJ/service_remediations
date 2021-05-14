@@ -14,4 +14,4 @@ def ejecutaScript():
             system(command)
 while True:
     ejecutaScript()
-    time.sleep(300)
+    time.sleep(180)
