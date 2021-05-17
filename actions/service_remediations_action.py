@@ -1,6 +1,4 @@
 import json
-import sys
-sys.path.insert(0, "/opt/stackstorm/packs/service_remediations_pack/actions/scripts/")
 from functions import send_service_command
 from datetime import datetime
 from pytz import timezone
