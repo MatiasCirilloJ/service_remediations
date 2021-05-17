@@ -1,9 +1,8 @@
 from time import sleep
 import json
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from datetime import datetime
+import sys
+sys.path.insert(0, "/opt/stackstorm/packs/service_remediations_pack/actions/scripts/")
 from functions import send_email, syslog, vm_remed
 
 from st2common.runners.base_action import Action
