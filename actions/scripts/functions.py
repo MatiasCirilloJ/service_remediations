@@ -52,7 +52,7 @@ def send_service_command(remote, io_rule, service, host, message, service_data):
     id_exec = exec_status()
     time.sleep(30)
     status = exec_status(id_exec)
-    syslog("[Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format(service_data[host]['host'], message, command, status))
+    syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Service", service_data[host]['host'], message, command, status))
     if "Controller" in host:
         os.system(remote.format(service_data[host]['host'], service_data["Commands"]['username'], service_data["Commands"]['private_key'], service_data[host]['cmd']["systemctl"]))
         id_exec = exec_status()
