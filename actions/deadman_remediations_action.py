@@ -1,6 +1,8 @@
 from time import sleep
 import json
 from datetime import datetime
+from pytz import timezone
+tz = timezone("America/Buenos_Aires")
 from functions import send_email, syslog, vm_remed
 
 from st2common.runners.base_action import Action
@@ -13,7 +15,7 @@ class DeadmanRemediationsAction(Action):
             service = message.split()[0]
             if 'deadman' in service and 'CRITICAL' in message:
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                    f.write("{} | {}\n".format(datetime.now().time().strftime("%H:%M:%S"), message))
+                    f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
                 host = service.split(sep="=")[1]
                 vm_status = vm_remed(service_data[host]['VM'])
                 while not vm_status:
