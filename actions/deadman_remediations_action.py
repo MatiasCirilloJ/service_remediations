@@ -8,7 +8,7 @@ from functions import send_email, syslog, vm_remed
 from st2common.runners.base_action import Action
 
 class DeadmanRemediationsAction(Action):
-    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
+    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None, timeout_poll=60):
         try:
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)
@@ -21,7 +21,9 @@ class DeadmanRemediationsAction(Action):
                 while not vm_status:
                     send_email(host)
                     syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Send email", "succeeded"))
-                    sleep(180)
+                    sleep(timeout_poll)
+                    with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                        f.write("Timer {}".format(timeout_poll))
                     vm_status = vm_remed(service_data[host]['VM'])
                 send_email(host, True)
                 syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Reboot VM", "succeeded"))

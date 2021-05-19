@@ -35,3 +35,8 @@ parameters:
         description: "durationField host to repair."
         required: false
         position: 5
+    timeout_poll:
+        type: "int"
+        description: "time out for vm status polling"
+        required: true
+        position: 6
