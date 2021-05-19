@@ -80,9 +80,9 @@ def send_email(host, poweron=False):
     data_email = service_data["Email"]
 
     if poweron:
-        mail_content = "El host %s se encendió." % host
+        mail_content = "<h3>El host <span style='color:red;'>%s</span> se remedi&oacute;.</h3>" % host
     else:
-        mail_content = "El host %s se encuentra apagado." % host
+        mail_content = "<h3>El host <span style='color:red;'>%s</span> se apag&oacute;.</h3>" % host
     #The mail addresses and password
     sender_address = data_email['sender']
     sender_pass = data_email['sender_pass']
@@ -96,7 +96,7 @@ def send_email(host, poweron=False):
     message['CC'] = "%s\r\n" % ",".join(cc)
     message['Subject'] = data_email['subject'] #The subject line
     #The body and the attachments for the mail
-    message.attach(MIMEText(mail_content, 'plain'))
+    message.attach(MIMEText(mail_content, 'html'))
     #Create SMTP session for sending the mail
     session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
     session.starttls() #enable security

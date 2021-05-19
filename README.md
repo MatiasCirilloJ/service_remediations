@@ -6,6 +6,8 @@ La instalación del entorno de trabajo se hace en Docker mediante la documentaci
 1 - Una vez realizada la intalacion del entorno, se debe configurar los puertos para comunicarnos con SS. Para ello, dentro del documento docker-compose se debe agregar dentro de "ports":
 - "${ST2_EXPOSE_HTTP:-0.0.0.0:80}:80"
 Luego comentar (si se agrego una nueva linea) el puerto por defecto con "#"
+Tambien en el servicio "st2actionrunner" hay que generar una environment PYTHONPATH con el siguiente path:
+- PYTHONPATH: "/opt/stackstorm/packs/service_remediations_pack/actions/scripts/"
 
 2 - Antes de realizar configuraciones dentro de SS, debemos cambiar la clave de usuario dentro de st2-docker/files/htpasswd
 
