@@ -22,4 +22,4 @@ action:
   description: Deadman remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"
-    timeout_poll: 10
+    timeout_poll: 180

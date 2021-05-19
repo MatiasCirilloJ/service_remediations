@@ -22,8 +22,6 @@ class DeadmanRemediationsAction(Action):
                     send_email(host)
                     syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Send email", "succeeded"))
                     sleep(timeout_poll)
-                    with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                        f.write("Timer {}".format(timeout_poll))
                     vm_status = vm_remed(service_data[host]['VM'])
                 send_email(host, True)
                 syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Reboot VM", "succeeded"))
