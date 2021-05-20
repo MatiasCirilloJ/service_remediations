@@ -12,9 +12,6 @@ criteria:
   trigger.body.message:
     type: exists
     pattern: {}
-  trigger.body.message:
-    type: "icontains"
-    pattern: "Interface"
 action:
   ref: service_remediations_pack.interface_remediations_action
   description: Interface remediations in StackStorm with ssh
