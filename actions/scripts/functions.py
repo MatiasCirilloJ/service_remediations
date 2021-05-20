@@ -80,9 +80,9 @@ def send_email(host, poweron=False):
     data_email = service_data["Email"]
 
     if poweron:
-        mail_content = "<h3>El host <span style='color:red;'>%s</span> se remedi&oacute;.</h3>" % host
+        mail_content = "<h3>The <span style='color:red;'>%s</span> host is powered on.</h3>" % host
     else:
-        mail_content = "<h3>El host <span style='color:red;'>%s</span> se apag&oacute;.</h3>" % host
+        mail_content = "<h3>The <span style='color:red;'>%s</span> host is powered off.</h3>" % host
     #The mail addresses and password
     sender_address = data_email['sender']
     sender_pass = data_email['sender_pass']
