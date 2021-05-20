@@ -17,7 +17,7 @@ class InterfaceRemediationsAction(Action):
             #host = message.split()[0]
             #service = message.split()[2]
 
-            if message is not None:
+            if True:
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
 

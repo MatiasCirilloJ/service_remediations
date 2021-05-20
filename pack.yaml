@@ -1,7 +1,7 @@
 ---
 ref: service_remediations_pack
 name : service_remediations_pack
-description : Service remediations in StackStorm with ssh
+description : Remediation pack for services, interfaces, vm and container
 keywords:
   - python3
   - ansible
