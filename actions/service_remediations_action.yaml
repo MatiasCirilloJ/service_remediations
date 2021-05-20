@@ -1,7 +1,7 @@
 ---
 name: "service_remediations_action"
 runner_type: "python-script"
-description: "Service remediations in StackStorm with ssh"
+description: "NEP@L service remediation action in StackStorm with ssh"
 enabled: true
 entry_point: "service_remediations_action.py"
 parameters:

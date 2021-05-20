@@ -1,6 +1,7 @@
 ---
 pack: service_remediations_pack
 ref: service_remediations_pack.docker_remediations_rule
+description: "NEP@L container remediation rule in StackStorm"
 name: docker_remediations_rule
 enabled: true
 trigger:

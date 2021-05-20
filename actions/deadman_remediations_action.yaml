@@ -1,7 +1,7 @@
 ---
 name: "deadman_remediations_action"
 runner_type: "python-script"
-description: "Host remediations in StackStorm with ssh"
+description: "NEP@L VM remediation action in StackStorm with ssh"
 enabled: true
 entry_point: "deadman_remediations_action.py"
 parameters:

@@ -1,6 +1,7 @@
 ---
 pack: service_remediations_pack
 ref: service_remediations_pack.service_remediations_rule
+description: "NEP@L service remediation rule in StackStorm"
 name: service_remediations_rule
 enabled: true
 trigger:
