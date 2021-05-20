@@ -1,0 +1,22 @@
+---
+pack: service_remediations_pack
+ref: service_remediations_pack.interface_remediations_rule
+description: "NEP@L interface remediation rule in StackStorm"
+name: interface_remediations_rule
+enabled: true
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "interface_remed"
+criteria:
+  trigger.body.message:
+    type: exists
+    pattern: {}
+  trigger.body.message:
+    type: "icontains"
+    pattern: "Interface"
+action:
+  ref: service_remediations_pack.interface_remediations_action
+  description: Interface remediations in StackStorm with ssh
+  parameters:
+    message: "{{ trigger.body.message }}"
