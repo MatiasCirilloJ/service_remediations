@@ -20,11 +20,11 @@ class DeadmanRemediationsAction(Action):
                 vm_status = vm_remed(service_data[host]['VM'])
                 while not vm_status:
                     send_email(host)
-                    syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Send email", "succeeded"))
+                    syslog("Deadman", service_data[host]['host'], message, "Send email", "succeeded")
                     sleep(timeout_poll)
                     vm_status = vm_remed(service_data[host]['VM'])
                 send_email(host, True)
-                syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Deadman", service_data[host]['host'], message, "Reboot VM", "succeeded"))
+                syslog("Deadman", service_data[host]['host'], message, "Reboot VM", "succeeded")
 
                 return (True, "Success")
 

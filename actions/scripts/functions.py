@@ -15,21 +15,22 @@ try:
 except:
     os.system("/opt/stackstorm/st2/bin/pip install pyvmomi")
     from pyVim.connect import SmartConnect, Disconnect
+try:
+    import netmiko
+except:
+    os.system("/opt/stackstorm/st2/bin/pip install netmiko")
+    import netmiko
 
-LEVEL = {
-    'emerg': 0, 'alert':1, 'crit': 2, 'err': 3,
-    'warning': 4, 'notice': 5, 'info': 6, 'debug': 7
-}
-
-def syslog(message, level=LEVEL['notice'],
+def syslog(subtype, host_ip, error, remediation, status,
     host='10.54.158.25', port=5000):
     """
     Send syslog TCP packet to given host and port.
     """
+    message = "[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format(subtype, host_ip, error, remediation, status)
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((host,port))
-        data = '<%d> %s' % (level, message)
+        data = '%s' % (message)
         sock.send(data.encode())
         sock.close()
     except:
@@ -52,13 +53,13 @@ def send_service_command(remote, io_rule, service, host, message, service_data):
     id_exec = exec_status()
     time.sleep(30)
     status = exec_status(id_exec)
-    syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Service", service_data[host]['host'], message, command, status))
+    syslog("Service", service_data[host]['host'], message, command, status)
     if "Controller" in host:
         os.system(remote.format(service_data[host]['host'], service_data["Commands"]['username'], service_data["Commands"]['private_key'], service_data[host]['cmd']["systemctl"]))
         id_exec = exec_status()
         time.sleep(30)
         status = exec_status(id_exec)
-        syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Service", service_data[host]['host'], message, service_data[host]['cmd']["systemctl"], status))
+        syslog("Service", service_data[host]['host'], message, service_data[host]['cmd']["systemctl"], status)
     os.system(io_rule.format('enable'))
 
 def send_docker_command(remote, io_rule, host, message, service_data):
@@ -71,7 +72,7 @@ def send_docker_command(remote, io_rule, host, message, service_data):
         if "SysLog" in host:
             time.sleep(90)
         status = exec_status(id_exec)
-        syslog("[Subtype]: {}, [Host]: {}, [Error]: {}, [Remediation]: {} [Status]: {}".format("Docker", service_data[host]['host'], message, service_data[host]['cmd'][cmd], status))
+        syslog("Docker", service_data[host]['host'], message, service_data[host]['cmd'][cmd], status)
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
 def send_email(host, poweron=False):
@@ -134,3 +135,14 @@ def vm_remed(vm):
                             elif k.guestHeartbeatStatus == "green":
                                 return True
     Disconnect(c)
+
+def send_interface_command(interface, host_ip, user="nepal", passwrd="cisco1234", router="cisco_ios"):
+    net_connect = netmiko.ConnectHandler(device_type=router,host=host_ip,port=22,username=user,password=passwrd) #Connect by ssh to the router
+    config_commands = [ 'int {}'.format(interface),
+                     'no shut',
+                     'exit']
+    net_connect.send_config_set(config_commands)
+    time.sleep(5)
+    status = net_connect.send_command('sh int {} status'.format(interface))
+    net_connect.disconnect()
+    return status
