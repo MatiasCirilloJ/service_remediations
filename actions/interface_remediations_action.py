@@ -16,7 +16,7 @@ class InterfaceRemediationsAction(Action):
                     f.write("{} | {}, {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message,host))
                 
                 ans_stat = send_interface_command(interface, host)
-                status = re.sub('\s+',' ', ans_stat.split('\n')[3]).split()[3]
+                status = re.sub('\s+',' ', ans_stat.split('\n')[2]).split()[3]
                 syslog("Interface", host, message, "no shut", status)
 
             return (False, "Message doesn't match")
