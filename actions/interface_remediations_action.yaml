@@ -35,3 +35,8 @@ parameters:
         description: "Service to repair."
         required: false
         position: 5
+    host:
+        type: "string"
+        description: "Host"
+        required: false
+        position: 6

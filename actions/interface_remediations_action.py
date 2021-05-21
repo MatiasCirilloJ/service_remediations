@@ -7,7 +7,7 @@ tz = timezone("America/Buenos_Aires")
 from st2common.runners.base_action import Action
 
 class InterfaceRemediationsAction(Action):
-    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
+    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None, host="10.54.158.243"):
         try:
             #with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
             #    service_data = json.load(file)
@@ -19,7 +19,7 @@ class InterfaceRemediationsAction(Action):
 
             if True:
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
-                    f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
+                    f.write("{} | {}, {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message,host))
 
             return (False, "Message doesn't match")
         
