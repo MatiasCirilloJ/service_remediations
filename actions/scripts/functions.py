@@ -143,6 +143,6 @@ def send_interface_command(interface, host_ip, user="nepal", passwrd="cisco1234"
                      'exit']
     net_connect.send_config_set(config_commands)
     time.sleep(5)
-    status = net_connect.send_command('sh int {} status'.format(interface))
+    ans_stat = net_connect.send_command('sh int {} status'.format(interface))
     net_connect.disconnect()
-    return status
+    return ans_stat

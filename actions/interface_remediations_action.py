@@ -1,3 +1,4 @@
+import re
 from functions import send_interface_command, syslog
 from datetime import datetime
 from pytz import timezone
@@ -14,7 +15,8 @@ class InterfaceRemediationsAction(Action):
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     f.write("{} | {}, {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message,host))
                 
-                status = send_interface_command(interface, host)
+                ans_stat = send_interface_command(interface, host)
+                status = re.sub('\s+',' ', ans_stat.split('\n')[3]).split()[3]
                 syslog("Interface", host, message, "no shut", status)
 
             return (False, "Message doesn't match")
