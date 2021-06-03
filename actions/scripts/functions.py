@@ -81,9 +81,9 @@ def send_email(host, poweron=False):
     data_email = service_data["Email"]
 
     if poweron:
-        mail_content = "<h3>The <span style='color:red;'>%s</span> host is powered on.</h3>" % host
+        mail_content = "<h3>The <span style='color:red;'>%s</span> host has been powered on.</h3>" % host
     else:
-        mail_content = "<h3>The <span style='color:red;'>%s</span> host is powered off.</h3>" % host
+        mail_content = "<h3>The <span style='color:red;'>%s</span> host has been powered off.</h3>" % host
     #The mail addresses and password
     sender_address = data_email['sender']
     sender_pass = data_email['sender_pass']
@@ -139,8 +139,7 @@ def vm_remed(vm):
 def send_interface_command(interface, host_ip, user="nepal", passwrd="cisco1234", router="cisco_ios"):
     net_connect = netmiko.ConnectHandler(device_type=router,host=host_ip,port=22,username=user,password=passwrd) #Connect by ssh to the router
     config_commands = [ 'int {}'.format(interface),
-                     'no shut',
-                     'exit']
+                     'no shut']
     net_connect.send_config_set(config_commands)
     time.sleep(5)
     ans_stat = net_connect.send_command('sh int {} status'.format(interface))
