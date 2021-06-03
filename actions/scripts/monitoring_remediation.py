@@ -3,7 +3,7 @@ import time
 from os import system
 
 url = "http://10.54.158.207:4348/containers/json?all=l"
-command = "st2 action execute service_remediations_pack.service_remediations_action message='NEP@L_Monitoring is CRITICAL docker container stopped value:  1'"
+command = "st2 action execute service_remediations_pack.docker_remediations_action message='NEP@L_Monitoring is CRITICAL docker container stopped value:  1'"
 
 def ejecutaScript():
     res = requests.get(url)
