@@ -16,7 +16,7 @@ class InterfaceRemediationsAction(Action):
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
                     f.write("{} | {}, {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message,host))
                 
-                sleep(10)
+                sleep(15)
                 ans_stat = send_interface_command(interface, host)
                 status = re.sub('\s+',' ', ans_stat.split('\n')[2]).split()[3]
                 syslog("Interface", host, message, "'no shut'", status)
