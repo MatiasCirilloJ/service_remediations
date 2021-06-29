@@ -1,0 +1,12 @@
+---
+name: service_remediation_workflow
+pack: service_remediation_pack
+description: A basic sequential workflow.
+runner_type: orquesta
+entry_point: workflows/service_remediation_workflow.yaml
+enabled: true
+parameters:
+  message:
+    required: true
+    type: string
+    default: "NEP@L_Monitoring is CRITICAL docker container stopped value:  1"

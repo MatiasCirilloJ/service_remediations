@@ -1,0 +1,35 @@
+---
+name: "viewer"
+runner_type: "python-script"
+description: "Print message to standard output."
+enabled: true
+entry_point: "viewer.py"
+parameters:
+    hosts:
+        type: "string"
+        description: "Host ip"
+        required: false
+    username:
+        type: "string"
+        description: "Username"
+        required: false
+    private_key:
+        type: "string"
+        description: "Private key"
+        required: false
+    cmd:
+        type: "string"
+        description: "Command"
+        required: false
+    message:
+        type: "string"
+        description: "Command"
+        required: false
+    VM:
+        type: "boolean"
+        description: "View VM state"
+        required: false
+    Docker:
+        type: "boolean"
+        description: "View VM state"
+        required: false

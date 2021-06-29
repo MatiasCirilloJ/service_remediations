@@ -8,7 +8,7 @@ tz = timezone("America/Buenos_Aires")
 from st2common.runners.base_action import Action
 
 class InterfaceRemediationsAction(Action):
-    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None, host="10.54.158.243"):
+    def run(self, message, host="10.54.158.243"):
         try:            
             interface = message.split(',')[0].split()[4]
 

@@ -8,10 +8,11 @@ from functions import send_email, syslog, vm_remed
 from st2common.runners.base_action import Action
 
 class DeadmanRemediationsAction(Action):
-    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None, timeout_poll=60):
+    def run(self, message, timeout_poll):
         try:
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)
+
             service = message.split()[0]
             if 'deadman' in service and 'CRITICAL' in message:
                 with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:

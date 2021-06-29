@@ -7,10 +7,11 @@ tz = timezone("America/Buenos_Aires")
 from st2common.runners.base_action import Action
 
 class DockerRemediationsAction(Action):
-    def run(self, message, id=None, idTag=None, levelTag=None, messageField=None, durationField=None):
+    def run(self, message, wrkflow):
         try:
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
                 service_data = json.load(file)
+
             host = message.split()[0]
 
             if host in service_data and 'cmd' in service_data[host] and int(message[-1]) != 0:

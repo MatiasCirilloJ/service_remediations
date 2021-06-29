@@ -9,34 +9,3 @@ parameters:
         type: "string"
         description: "interface to repair."
         required: true
-        position: 0
-    id:
-        type: "string"
-        description: "Service to repair."
-        required: false
-        position: 1
-    idTag:
-        type: "string"
-        description: "Service to repair."
-        required: false
-        position: 2
-    levelTag:
-        type: "string"
-        description: "Service to repair."
-        required: false
-        position: 3
-    messageField:
-        type: "string"
-        description: "Service to repair."
-        required: false
-        position: 4
-    durationField:
-        type: "string"
-        description: "Service to repair."
-        required: false
-        position: 5
-    host:
-        type: "string"
-        description: "Host"
-        required: false
-        position: 6

@@ -1,0 +1,88 @@
+version: 1.0
+  
+description: A service remediation workflow.
+
+input:
+  - message
+
+vars:
+  - greeting: null
+  - host_ip: null
+  - msg_res: null
+  
+output:
+  - greeting: <% ctx().greeting %>
+
+tasks:
+  View_VM_status:
+    action: service_remediation_pack.viewer
+    input: 
+      message: <% ctx().message %>
+      VM: true
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - host_ip: <% result().result %>
+        do: View_container_status
+      - when: <% failed() %>
+        publish:
+          msg_res=<% result().result %>
+        do: Repair_VM
+  Repair_VM:
+    action: service_remediation_pack.deadman_remediations_action
+    input: 
+      message: <% ctx("msg_res") %>
+      timeout_poll: 60
+    next:
+      - when: <% succeeded() %>
+        do: Succeeded_task
+      - when: <% failed() %> 
+        publish:
+          - greeting: <% ctx("msg_res") %>, <% result().stderr %>
+        do: Failed_task
+  View_container_status:
+    action: service_remediation_pack.viewer
+    input: 
+      Docker: true
+      hosts: <% ctx("host_ip") %>
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl is-enabled docker'
+      message: <% ctx().message %>
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().result %>
+        do: Repair_Docker
+      - when: <% failed() %>
+        publish:
+          - msg_res: <% result().result %>
+        do:
+          - Repair_Service
+  Repair_Service:
+    action: service_remediation_pack.service_remediations_action
+    input: 
+      message: <% ctx("msg_res") %>
+    next:
+      - when: <% succeeded() %>
+        do: Succeeded_task
+      - when: <% failed() %> 
+        publish:
+          - greeting: <% ctx("msg_res") %>, <% result().stderr %>
+        do: Failed_task
+  Repair_Docker:
+    action: service_remediation_pack.docker_remediations_action
+    input: 
+      message: <% ctx().message %>
+    next:
+      - when: <% succeeded() %>
+        publish: greeting=<% result().stdout %>
+        do: Succeeded_task
+      - when: <% failed() %> 
+        publish:
+          - greeting: <% ctx().message %>, <% result().stderr %>
+        do: Failed_task
+  Succeeded_task:
+    action: core.echo message="Succeeded"
+  Failed_task:
+    action: core.echo message="Failed"

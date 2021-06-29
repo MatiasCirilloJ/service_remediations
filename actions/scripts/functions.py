@@ -106,7 +106,7 @@ def send_email(host, poweron=False):
     session.sendmail(sender_address, rcpt, text)
     session.quit()
 
-def vm_remed(vm):
+def vm_remed(vm, wh = True):
     s = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     s.verify_mode = ssl.CERT_NONE
 
@@ -118,9 +118,10 @@ def vm_remed(vm):
             for j in i.vmFolder.childEntity:
                 if j.name == vm:
                     if j.guestHeartbeatStatus == "gray":
-                        j.PowerOffVM_Task()
-                        time.sleep(10)
-                        j.PowerOnVM_Task()
+                        if wh:
+                            j.PowerOffVM_Task()
+                            time.sleep(10)
+                            j.PowerOnVM_Task()
                         return False
                     elif j.guestHeartbeatStatus == "green":
                         return True
@@ -128,9 +129,10 @@ def vm_remed(vm):
                     for k in j.childEntity:
                         if k.name == vm:
                             if k.guestHeartbeatStatus == "gray":
-                                k.PowerOffVM_Task()
-                                time.sleep(10)
-                                k.PowerOnVM_Task()
+                                if wh:
+                                    k.PowerOffVM_Task()
+                                    time.sleep(10)
+                                    k.PowerOnVM_Task()
                                 return False
                             elif k.guestHeartbeatStatus == "green":
                                 return True
