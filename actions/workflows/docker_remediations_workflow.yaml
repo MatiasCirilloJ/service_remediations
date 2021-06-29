@@ -35,11 +35,10 @@ tasks:
       timeout_poll: 60
     next:
       - when: <% succeeded() %>
-        do: Succeeded_task
+        publish: greeting=<% result().stdout %>
       - when: <% failed() %> 
         publish:
           - greeting: <% ctx("msg_res") %>, <% result().stderr %>
-        do: Failed_task
   View_container_status:
     action: remediations_pack.viewer
     input: 
@@ -65,11 +64,10 @@ tasks:
       message: <% ctx("msg_res") %>
     next:
       - when: <% succeeded() %>
-        do: Succeeded_task
+        publish: greeting=<% result().stdout %>
       - when: <% failed() %> 
         publish:
           - greeting: <% ctx("msg_res") %>, <% result().stderr %>
-        do: Failed_task
   Repair_Docker:
     action: remediations_pack.docker_remediations_action
     input: 
@@ -77,12 +75,6 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
-        do: Succeeded_task
       - when: <% failed() %> 
         publish:
           - greeting: <% ctx().message %>, <% result().stderr %>
-        do: Failed_task
-  Succeeded_task:
-    action: core.echo message="Succeeded"
-  Failed_task:
-    action: core.echo message="Failed"
