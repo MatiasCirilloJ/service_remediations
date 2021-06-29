@@ -7,7 +7,7 @@ tz = timezone("America/Buenos_Aires")
 from st2common.runners.base_action import Action
 
 class DockerRemediationsAction(Action):
-    def run(self, message, wrkflow):
+    def run(self, message):
         try:
             with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
                 service_data = json.load(file)
