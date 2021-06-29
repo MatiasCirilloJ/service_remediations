@@ -16,14 +16,6 @@ class EchoRemote(Action):
         
         host_name = message.split()[0]
 
-        if Docker:
-            remote = subprocess.check_output("st2 run core.remote hosts='{}' username='{}' private_key='{}' cmd='{}' -j".format(hosts, username, private_key, cmd), shell=True)
-            result_state = json.loads(remote)["result"][hosts]["stdout"]
-            if 'enabled' in result_state:
-                return (True, result_state) 
-            else:
-                return (False, "{} service docker status is CRITICAL value: 3".format(host_name))         
-        
         if VM:
             with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
                 service_data = json.load(file)
@@ -33,6 +25,16 @@ class EchoRemote(Action):
                 return (True, service_data[host_name]['host'].replace("'",""))
             else:
                 return (False, "deadman-host={} status CRITICAL".format(host_name))
+                
+        if Docker:
+            remote = subprocess.check_output("st2 run core.remote hosts='{}' username='{}' private_key='{}' cmd='{}' -j".format(hosts, username, private_key, cmd), shell=True)
+            result_state = json.loads(remote)["result"][hosts]["stdout"]
+            if 'enabled' in result_state:
+                return (True, result_state) 
+            else:
+                return (False, "{} service docker status is CRITICAL value: 3".format(host_name))         
+        
+        
 
 
         return (False, "False message")
