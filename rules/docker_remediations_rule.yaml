@@ -1,6 +1,6 @@
 ---
-pack: service_remediations_pack
-ref: service_remediations_pack.docker_remediations_rule
+pack: remediations_pack
+ref: remediations_pack.docker_remediations_rule
 description: "NEP@L container remediation rule in StackStorm"
 name: docker_remediations_rule
 enabled: true
@@ -19,7 +19,7 @@ criteria:
     type: "icontains"
     pattern: "critical"
 action:
-  ref: service_remediations_pack.docker_remediations_action
+  ref: remediations_pack.docker_remediations_action
   description: Docker remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"

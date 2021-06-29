@@ -9,13 +9,13 @@ from st2common.runners.base_action import Action
 class DockerRemediationsAction(Action):
     def run(self, message, wrkflow):
         try:
-            with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
+            with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
                 service_data = json.load(file)
 
             host = message.split()[0]
 
             if host in service_data and 'cmd' in service_data[host] and int(message[-1]) != 0:
-                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                with open("/opt/stackstorm/packs/remediations_pack/data/logs.txt", "a") as f:
                     f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
                 io_rule = service_data['Commands']['IO_rule']["docker"]
                 remote = service_data['Commands']['remote']

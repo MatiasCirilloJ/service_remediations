@@ -1,6 +1,6 @@
 ---
-pack: service_remediations_pack
-ref: service_remediations_pack.service_remediations_rule
+pack: remediations_pack
+ref: remediations_pack.service_remediations_rule
 description: "NEP@L service remediation rule in StackStorm"
 name: service_remediations_rule
 enabled: true
@@ -19,7 +19,7 @@ criteria:
     type: "icontains"
     pattern: "critical"
 action:
-  ref: service_remediations_pack.service_remediations_action
+  ref: remediations_pack.service_remediations_action
   description: Service remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"

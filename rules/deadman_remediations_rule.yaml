@@ -1,6 +1,6 @@
 ---
-pack: service_remediations_pack
-ref: service_remediations_pack.deadman_remediations_rule
+pack: remediations_pack
+ref: remediations_pack.deadman_remediations_rule
 description: "NEP@L VM remediation rule in StackStorm"
 name: deadman_remediations_rule
 enabled: true
@@ -19,7 +19,7 @@ criteria:
     type: "icontains"
     pattern: "critical"
 action:
-  ref: service_remediations_pack.deadman_remediations_action
+  ref: remediations_pack.deadman_remediations_action
   description: Deadman remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"

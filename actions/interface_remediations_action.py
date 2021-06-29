@@ -13,7 +13,7 @@ class InterfaceRemediationsAction(Action):
             interface = message.split(',')[0].split()[4]
 
             if 'down' in message:
-                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                with open("/opt/stackstorm/packs/remediations_pack/data/logs.txt", "a") as f:
                     f.write("{} | {}, {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message,host))
                 
                 sleep(15)

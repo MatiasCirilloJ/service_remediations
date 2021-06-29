@@ -7,7 +7,7 @@ La instalación del entorno de trabajo se hace en Docker mediante la documentaci
 - "${ST2_EXPOSE_HTTP:-0.0.0.0:80}:80"
 Luego comentar (si se agrego una nueva linea) el puerto por defecto con "#"
 Tambien en el servicio "st2actionrunner" hay que generar una environment PYTHONPATH con el siguiente path:
-- PYTHONPATH: "/opt/stackstorm/packs/service_remediations_pack/actions/scripts/"
+- PYTHONPATH: "/opt/stackstorm/packs/remediations_pack/actions/scripts/"
 
 2 - Antes de realizar configuraciones dentro de SS, debemos cambiar la clave de usuario dentro de st2-docker/files/htpasswd
 
@@ -21,4 +21,4 @@ b) ssh-copy-id -f -i /home/stanley/.ssh/id_rsa.pub host_name@host_ip  --> comple
 -  st2 pack install https://git_user:git_passwrd@github.com/escrimaglia/Remediation.git
 
 6 - Al instalar el paquete en SS se debe inicializar el "Monitoring remediation":
-- nohup python3 /opt/stackstorm/packs/service_remediations_pack/actions/scripts/monitoring_remediation.py &
+- nohup python3 /opt/stackstorm/packs/remediations_pack/actions/scripts/monitoring_remediation.py &

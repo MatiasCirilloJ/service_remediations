@@ -1,6 +1,6 @@
 ---
-ref: service_remediations_pack
-name : service_remediations_pack
+ref: remediations_pack
+name : remediations_pack
 description : Remediation pack for services, interfaces, vm and container
 keywords:
   - python3

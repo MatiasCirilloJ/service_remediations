@@ -76,7 +76,7 @@ def send_docker_command(remote, io_rule, host, message, service_data):
     os.system(io_rule.format('enable'))    #Enable webhook rule
 
 def send_email(host, poweron=False):
-    with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
+    with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
         service_data = json.load(file)
     data_email = service_data["Email"]
 

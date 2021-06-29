@@ -10,12 +10,12 @@ from st2common.runners.base_action import Action
 class DeadmanRemediationsAction(Action):
     def run(self, message, timeout_poll):
         try:
-            with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
+            with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
                 service_data = json.load(file)
 
             service = message.split()[0]
             if 'deadman' in service and 'CRITICAL' in message:
-                with open("/opt/stackstorm/packs/service_remediations_pack/actions/logs.txt", "a") as f:
+                with open("/opt/stackstorm/packs/remediations_pack/data/logs.txt", "a") as f:
                     f.write("{} | {}\n".format(tz.localize(datetime.now()).strftime("%D-%H:%M:%S"), message))
                 host = service.split(sep="=")[1]
                 vm_status = vm_remed(service_data[host]['VM'])

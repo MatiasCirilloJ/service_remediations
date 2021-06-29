@@ -11,8 +11,8 @@
         {
             "IO_rule": 
 			{
-                "service": "st2 rule {} service_remediations_pack.service_remediations_rule",
-                "docker": "st2 rule {} service_remediations_pack.docker_remediations_rule"
+                "service": "st2 rule {} remediations_pack.service_remediations_rule",
+                "docker": "st2 rule {} remediations_pack.docker_remediations_rule"
             },
             "remote": "st2 run core.remote hosts={} username={} private_key={} cmd={}",
             "systemctl": "'systemctl stop {0} && systemctl start {0}'",

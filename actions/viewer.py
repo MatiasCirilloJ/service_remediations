@@ -25,7 +25,7 @@ class EchoRemote(Action):
                 return (False, "{} service docker status is CRITICAL value: 3".format(host_name))         
         
         if VM:
-            with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
+            with open('/opt/stackstorm/packs/remediations_pack/data/service_data.json') as file:
                 service_data = json.load(file)
             vm = service_data[host_name]['VM']
             vm_status = vm_remed(vm, False)

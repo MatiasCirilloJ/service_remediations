@@ -1,6 +1,6 @@
 ---
-pack: service_remediations_pack
-ref: service_remediations_pack.interface_remediations_rule
+pack: remediations_pack
+ref: remediations_pack.interface_remediations_rule
 description: "NEP@L interface remediation rule in StackStorm"
 name: interface_remediations_rule
 enabled: true
@@ -16,7 +16,7 @@ criteria:
     type: exists
     pattern: {}
 action:
-  ref: service_remediations_pack.interface_remediations_action
+  ref: remediations_pack.interface_remediations_action
   description: Interface remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"
