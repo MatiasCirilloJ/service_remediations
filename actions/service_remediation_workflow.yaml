@@ -1,9 +1,9 @@
 ---
-name: service_remediation_workflow
-pack: service_remediation_pack
+name: service_remediations_workflow
+pack: remediations_pack
 description: A basic sequential workflow.
 runner_type: orquesta
-entry_point: workflows/service_remediation_workflow.yaml
+entry_point: workflows/service_remediations_workflow.yaml
 enabled: true
 parameters:
   message:

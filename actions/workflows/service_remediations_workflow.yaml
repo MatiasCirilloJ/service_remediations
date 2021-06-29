@@ -15,7 +15,7 @@ output:
 
 tasks:
   View_VM_status:
-    action: service_remediation_pack.viewer
+    action: remediations_pack.viewer
     input: 
       message: <% ctx().message %>
       VM: true
@@ -29,7 +29,7 @@ tasks:
           msg_res=<% result().result %>
         do: Repair_VM
   Repair_VM:
-    action: service_remediation_pack.deadman_remediations_action
+    action: remediations_pack.deadman_remediations_action
     input: 
       message: <% ctx("msg_res") %>
       timeout_poll: 60
@@ -41,7 +41,7 @@ tasks:
           - greeting: <% ctx("msg_res") %>, <% result().stderr %>
         do: Failed_task
   View_container_status:
-    action: service_remediation_pack.viewer
+    action: remediations_pack.viewer
     input: 
       Docker: true
       hosts: <% ctx("host_ip") %>
@@ -60,7 +60,7 @@ tasks:
         do:
           - Repair_Service
   Repair_Service:
-    action: service_remediation_pack.service_remediations_action
+    action: remediations_pack.service_remediations_action
     input: 
       message: <% ctx("msg_res") %>
     next:
@@ -71,7 +71,7 @@ tasks:
           - greeting: <% ctx("msg_res") %>, <% result().stderr %>
         do: Failed_task
   Repair_Docker:
-    action: service_remediation_pack.docker_remediations_action
+    action: remediations_pack.docker_remediations_action
     input: 
       message: <% ctx().message %>
     next:
