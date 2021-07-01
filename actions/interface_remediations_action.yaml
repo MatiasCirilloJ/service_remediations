@@ -9,3 +9,7 @@ parameters:
         type: "string"
         description: "interface to repair."
         required: true
+    host:
+        type: "string"
+        description: "Host"
+        required: false
