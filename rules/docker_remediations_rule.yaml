@@ -19,7 +19,7 @@ criteria:
     type: "icontains"
     pattern: "critical"
 action:
-  ref: remediations_pack.docker_remediations_workflow
+  ref: remediations_pack.docker_remediations_action
   description: Docker remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"
