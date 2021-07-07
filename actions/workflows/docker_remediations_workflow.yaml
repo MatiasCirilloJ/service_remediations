@@ -22,8 +22,8 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          host_ip=<% result().result %>
-        do: View_container_status
+          - host_ip: <% result().result %>
+        do: View_container_enablement
       - when: <% failed() %>
         publish:
           msg_res=<% result().result %>
