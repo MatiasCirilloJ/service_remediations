@@ -39,7 +39,7 @@ tasks:
       - when: <% failed() %> 
         publish:
           - greeting: <% ctx().message %>, <% result().stderr %>
-  View_container_status:
+  View_container_enablement:
     action: remediations_pack.viewer
     input: 
       Docker: true
@@ -47,6 +47,40 @@ tasks:
       username: 'root'
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
+      message: <% ctx().message %>
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().result %>
+        do: View_container_status
+      - when: <% failed() %>
+        publish:
+          - msg_res: <% result().result %>
+        do:
+          - Enabled_docker
+  Enabled_docker:
+    action: core.remote
+    input:
+      hosts: <% ctx("host_ip") %>
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl enable docker'
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().result %>
+        do: View_container_status
+      - when: <% failed() %>
+        publish:
+          - greeting: <% ctx().message %>, <% result().stderr %>
+  View_container_status:
+    action: remediations_pack.viewer
+    input: 
+      Docker: true
+      hosts: <% ctx("host_ip") %>
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl is-active docker'
       message: <% ctx().message %>
     next:
       - when: <% succeeded() %>

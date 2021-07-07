@@ -23,7 +23,7 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           - host_ip: <% result().result %>
-        do: Repair_Service
+        do: View_container_enablement
       - when: <% failed() %>
         publish:
           msg_res=<% result().result %>
@@ -37,6 +37,40 @@ tasks:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
       - when: <% failed() %> 
+        publish:
+          - greeting: <% ctx().message %>, <% result().stderr %>
+  View_container_enablement:
+    action: remediations_pack.viewer
+    input: 
+      Docker: true
+      hosts: <% ctx("host_ip") %>
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl is-enabled docker'
+      message: <% ctx().message %>
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().result %>
+        do: Repair_Service
+      - when: <% failed() %>
+        publish:
+          - msg_res: <% result().result %>
+        do:
+          - Enabled_docker
+  Enabled_docker:
+    action: core.remote
+    input:
+      hosts: <% ctx("host_ip") %>
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl enable docker'
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().result %>
+        do: Repair_Service
+      - when: <% failed() %>
         publish:
           - greeting: <% ctx().message %>, <% result().stderr %>
   Repair_Service:

@@ -12,11 +12,8 @@ criteria:
   trigger.body.message:
     type: exists
     pattern: {}
-  trigger.body.host:
-    type: exists
-    pattern: {}
 action:
-  ref: remediations_pack.interface_remediations_action
+  ref: remediations_pack.interface_remediations_workflow
   description: Interface remediations in StackStorm with ssh
   parameters:
     message: "{{ trigger.body.message }}"
