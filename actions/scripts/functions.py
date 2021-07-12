@@ -22,7 +22,7 @@ except:
     import netmiko
 
 def syslog(subtype, host_ip, error, remediation, status,
-    host='10.54.158.25', port=5000):
+    host='10.54.158.25', port=5006):
     """
     Send syslog TCP packet to given host and port.
     """
