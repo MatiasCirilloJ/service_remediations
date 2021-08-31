@@ -45,8 +45,8 @@
             "host":"'10.54.158.207'",
             "cmd":
                 {
-                    "stop":"'cd /opt/tick/ && docker-compose stop'", 
-                    "up": "'cd /opt/tick/ && docker-compose up -d'"
+                    "stop":"'cd /opt/tick2/ && docker-compose stop'", 
+                    "up": "'cd /opt/tick2/ && docker-compose up -d'"
                 },
             "VM":"NEP@L_TickStack"
         },
